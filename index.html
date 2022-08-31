@@ -88,12 +88,9 @@
 
           // use the three.js GLTF loader to add the 3D model to the three.js scene
           const loader = new THREE.GLTFLoader();
-          loader.load(
-            "https://raw.githubusercontent.com/foffer/windfarm/main/windmill_a.gltf",
-            (gltf) => {
-              this.scene.add(gltf.scene);
-            }
-          );
+          loader.load("./scaled_turbine.gltf", (gltf) => {
+            this.scene.add(gltf.scene);
+          });
           this.map = map;
 
           // use the Mapbox GL JS map canvas for three.js
@@ -145,7 +142,7 @@
       };
 
       map.on("style.load", () => {
-        map.addLayer(customLayer, "waterway-label");
+        map.addLayer(customLayer);
       });
     </script>
   </body>
