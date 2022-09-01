@@ -11,6 +11,7 @@
       href="https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.css"
       rel="stylesheet"
     />
+    <link href="./output.css" rel="stylesheet" />
     <script src="https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.js"></script>
     <style>
       body {
@@ -28,7 +29,99 @@
   <body>
     <script src="https://unpkg.com/three@0.126.0/build/three.min.js"></script>
     <script src="https://unpkg.com/three@0.126.0/examples/js/loaders/GLTFLoader.js"></script>
+    <style>
+      #overlay {
+        visibility: hidden;
+      }
+      .modal {
+        display: inline-block;
+        position: relative;
+        cursor: pointer;
+
+        padding: 8px;
+        border-radius: 3px;
+        margin-top: 10px;
+        font-size: 12px;
+        text-align: center;
+        color: #040404;
+        background: #fff;
+        font-family: sans-serif;
+        font-weight: bold;
+      }
+    </style>
     <div id="map"></div>
+    <div id="overlay" class="flex justify-center align-middle w-full h-full">
+      <div class="modal w-full lg:w-5/6 h-full lg-h:5/6">
+        <div class="flex-col">
+          <div>
+            <h2 class="text-xl">Hill of Fare Windfarm</h2>
+            <p class="text-sm text-gray-500 text-left">
+              The following map is an attempt to approximate the scale and
+              positions of the proposed windturbines by
+              <a
+                class="underline text-indigo-400"
+                href="https://www.res-group.com/en"
+                target="_blank"
+                >RES</a
+              >. You can read more about the windfarm proposal
+              <a
+                class="underline text-indigo-400"
+                href="http://www.hilloffare-windfarm.co.uk"
+                target="_blank"
+                >here.</a
+              >
+            </p>
+            <p class="mt-2 text-sm text-gray-500 text-left">
+              The scale and heights of the turbines are an estimation, not an
+              accurate reproduction.
+            </p>
+            <p class="mt-2 text-sm text-gray-500 text-left">
+              The positions of the turbines are taken from
+              <i
+                ><a
+                  class="underline text-indigo-400"
+                  href="http://www.hilloffare-windfarm.co.uk/media/2641310/hill-of-fare-scoping-appendix-101-aviation-mod-proforma.pdf"
+                  target="_blank"
+                  >Appendix 10.1 Aviation MoD Proforma</a
+                ></i
+              >
+              from the project website.
+            </p>
+
+            <p class="mt-2 text-sm text-gray-500 text-left">
+              You can pan, zoom and tilt the map to get a view from different
+              angles
+            </p>
+          </div>
+
+          <div class="mt-10">
+            <button
+              id="close-button"
+              class="button bg-indigo-500 text-white px-4 py-2 rounded"
+            >
+              Proceed
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      if (window.localStorage.getItem("hasSeenMessage") !== "true") {
+        document.getElementById("overlay").style.visibility = "visible";
+      } else {
+        console.log("User has not seen message");
+      }
+    </script>
+    <script>
+      document
+        .getElementById("close-button")
+        .addEventListener("click", (event) => {
+          document.getElementById("overlay").style.visibility = "hidden";
+          const storage = window.localStorage;
+          storage.setItem("hasSeenMessage", "true");
+        });
+    </script>
+
     <script>
       const turbines = [
         {
